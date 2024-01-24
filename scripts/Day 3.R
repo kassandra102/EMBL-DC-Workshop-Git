@@ -1,7 +1,7 @@
 # Day 3: Manipulating, analyzing and exporting data with tidyverse
 
 library(tidyverse)
-setwd("C:/Users/k667l/Desktop/EMBL_course")
+setwd("C:/Users/k667l/Desktop/EMBL_course/EMBL-DC-Workshop-Git/")
 surveys <-read_csv("data_raw/portal_data_joined.csv") 
 str(surveys)
 View(surveys)
@@ -41,7 +41,7 @@ surveys %>%
 surveys %>% 
   filter(!is.na(weight)) %>%    # filter out rows which do not have value for weight
   mutate(weight_kg = weight/1000, weight_lb = weight_kg * 2.2) %>% 
-  View()   # alternatively use head to see the first 6 rows
+  View()   # alternatively use head to see the first 6 rows 
 
 
 
