@@ -43,6 +43,45 @@ surveys %>%
   mutate(weight_kg = weight/1000, weight_lb = weight_kg * 2.2) %>% 
   View()   # alternatively use head to see the first 6 rows 
 
+# Calculate average weights: Split-apply-combine paradigm
+surveys %>% 
+  filter(!is.na(sex)) %>% # NA's are filtered out
+  group_by(sex) %>% 
+  summarise(mean_weight = mean(weight, na.rm = T))
+
+surveys %>% 
+  filter(!is.na(weight)) %>% # NA's are filtered out
+  group_by(sex, species_id) %>% 
+  summarise(mean_weight = mean(weight, na.rm = T)) %>% 
+  tail()
+
+surveys %>% 
+  filter(!is.na(weight)) %>% # NA's are filtered out
+  group_by(sex, species_id) %>% 
+  summarise(mean_weight = mean(weight, na.rm = T)) %>% 
+  print(n = 15) #print 15 lines
+
+surveys %>% 
+  filter(!is.na(weight), !is.na(sex)) %>% # NA's are filtered out for multiple columns
+  group_by(sex, species_id) %>% 
+  summarise(mean_weight = mean(weight, na.rm = T)) %>% 
+  print(n = 15) #print 15 lines
+
+#Calculate the minimum weight
+surveys %>% 
+  filter(!is.na(weight), !is.na(sex)) %>% # NA's are filtered out for multiple columns
+  group_by(sex, species_id) %>% 
+  summarise(mean_weight = mean(weight, na.rm = T), min_weight = min(weight)) %>% 
+  arrange(min_weight)  # Order column: automatically ascending order
+
+#Calculate the minimum weight
+surveys %>% 
+  filter(!is.na(weight), !is.na(sex)) %>% # NA's are filtered out for multiple columns
+  group_by(sex, species_id) %>% 
+  summarise(mean_weight = mean(weight), min_weight = min(weight)) %>% # No NA removal needed because we did it at the top
+  arrange(desc(min_weight))  # Order column: descending order
+
+
 
 
 
